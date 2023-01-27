@@ -32,14 +32,14 @@ public class MyIO_OUT {
     }
 
     public static void inputStartPostalCode() {
-        System.out.println("Bitte geben Sie einen Startpunkt an");
+        System.out.println("\nBitte geben Sie einen Startpunkt an");
     }
 
     public static void inputDestinationPostalCode() {
         System.out.println("Bitte geben Sie einen Zielpunkt an");
     }
 
-    public static void PostalCodeEquals() {
+    public static void postalCodeEquals() {
         System.err.println("Es wurde eine Postleitzahl ausgewählt, die dem " +
                 "Startpunkt gleich ist!");
     }

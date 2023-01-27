@@ -82,25 +82,29 @@ public class MyIO_IN {
         int startPostalCode = 0;
         int endPostalCode = 0;
         do {
-            MyIO_OUT.inputStartPostalCode();
-            try {
-                startPostalCode = Integer.parseInt(br.readLine());
-            } catch (NumberFormatException nfe) {
-                MyIO_OUT.postalCodeError();
-            }
-        } while (startPostalCode != 0 && !postalCodeExists(validPostalCodes,
-                startPostalCode));
-        do {
-            MyIO_OUT.inputDestinationPostalCode();
-            try {
-                endPostalCode = Integer.parseInt(br.readLine());
-            } catch (Exception e) {
-                MyIO_OUT.postalCodeError();
-            }
-        } while (endPostalCode != 0 && !postalCodeExists(validPostalCodes,
-                endPostalCode));
-        return new int[]{
-                startPostalCode, endPostalCode};
+            do {
+                MyIO_OUT.inputStartPostalCode();
+                try {
+                    startPostalCode = Integer.parseInt(br.readLine());
+                } catch (NumberFormatException nfe) {
+                    MyIO_OUT.postalCodeError();
+                }
+            } while (startPostalCode != 0 && !postalCodeExists(validPostalCodes,
+                    startPostalCode));
+            do {
+                MyIO_OUT.inputDestinationPostalCode();
+                try {
+                    endPostalCode = Integer.parseInt(br.readLine());
+                } catch (Exception e) {
+                    MyIO_OUT.postalCodeError();
+                    MyIO_OUT.postalCodeEquals();
+                }
+            } while (endPostalCode != 0 && !postalCodeExists(validPostalCodes,
+                    endPostalCode));
+        } while (endPostalCode == startPostalCode);
+        if (endPostalCode == startPostalCode)
+            return new int[]{
+                    startPostalCode, endPostalCode};
     }
 
     /**

@@ -42,12 +42,9 @@ public class Main {
                 validChargingStations.size()
                 + " ( " + elpasedTime + "ms ) ");
 
-
         Timer.start();
         sortChargingStationByPostalCodeAndPower(validChargingStations);
         long pasedTime = Timer.getElapsedTimeInMilliseconds();
-        System.out.println(AMOUNT_VALID + " ( " + elpasedTime + "ms ) ");
-
 
         MyIO_IN in = new MyIO_IN();
         int[] inputs = in.getInputs();
@@ -63,11 +60,35 @@ public class Main {
         System.out.println(AMOUNT_CHARGINGSTATION +
                 validChargingStations.size() + " " + " ( " + elpasedTime + " " +
                 "ms )");
+
         for (ChargingStation station : validChargingStations) {
             System.out.println(station.toString());
         }
         saveChargingStationInRange(validChargingStations, inputs[1],
                 comparator);
+        comparator.set_distance(inputs[1]);
+        for (int i = 0; i < validChargingStations.size(); i++) {
+            for (int j = 0; j < validChargingStations.size(); j++) {
+                int result = comparator
+                        .compare(validChargingStations.get(i),
+                                validChargingStations.get(j));
+                if (result == -1) {
+                    validChargingStations.get(i)
+                            .get_chargingStationInRange()
+                            .add(validChargingStations.get(j));
+                }
+            }
+            if (validChargingStations.get(i).get_postalCode() == 86153) {
+                System.out.print(validChargingStations.get(i).get_postalCode() + " "
+                        + validChargingStations.get(i).get_location() + " -> ");
+                for (ChargingStation station :
+                        validChargingStations.get(i)
+                                .get_chargingStationInRange()) {
+                    System.out.print(station.get_postalCode() + " "
+                            + station.get_location() + ", ");
+                }
+            }
+        }
 
         int[] postalCodes =
                 in.checkPLZ(validChargingStations.stream()
@@ -78,7 +99,6 @@ public class Main {
             System.out.println(station.toString());
         }
     }
-
 
     /**
      * This method creates util.ChargingStation object by parsing the values
@@ -210,22 +230,12 @@ public class Main {
                 }
             }
             if (validChargingStations.get(i).get_postalCode() == 86153) {
-                /**
-                 * real
-                 * System.out.print(validChargingStations.get(i)
-                 .get_postalCode()
-                 + " " + validChargingStations.get(i).get_location() +
-                 " -> "); */
                 for (ChargingStation station :
                         validChargingStations.get(i)
                                 .get_chargingStationInRange()) {
                     System.out.print(station.get_postalCode() + " "
                             + station.get_location() + ", ");
                 }
-                /** System.out.print(validChargingStations.get(i)
-                 .get_postalCode()
-                 + " " + validChargingStations.get(i).get_location() +
-                 " -> "); */
             }
         }
     }
